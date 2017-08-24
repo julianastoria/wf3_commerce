@@ -36,7 +36,18 @@ class ProductsController extends Controller
 			// Contrôle et formatage des données
 
 			// Enregistre en BDD
+			if ($save) {
+				// Instance du Manager d'articles
+				$products = new ProductsManager();
 
+				$product = $products->insert(
+					[
+					"name" => $name,
+					"description" => $description,
+					"name" => $name,
+					"name" => $name,
+					]);
+			}
 			
 		}
 
