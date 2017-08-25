@@ -1,8 +1,8 @@
-<?php $this->layout('layout', ['title' => 'Ajouter un produit']) ?>
+<?php $this->layout('layout', ['title' => $name]) ?>
 
 <?php $this->start('main_content') ?>
 
-<h2>Ajout d'un produit</h2>
+<h2>Modification d'un produit</h2>
 
 <form method="POST">
 	<div>
@@ -25,7 +25,7 @@
 		<input type="number" id="price"  name="price" value="<?= $price ?>">
 	</div>
 
-	<button type="submit" name="button">Enregistrer</button>
+	<button type="submit" name="button">Modifier</button>
 </form>
 
 <?php $this->stop('main_content') ?>
