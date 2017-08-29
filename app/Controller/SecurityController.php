@@ -9,37 +9,56 @@ class SecurityController extends Controller
 {
 
 	private $userManager;
+	private $AuthManager;
 
 	public function __construct()
 	{
 		$this->userManager = new UserManager;
 		$this->userManager->setTable('Users');
+
+		$this->AuthManager = new AuthentificationManager;
 	}
 
 
 	public function signin()
 	{
+		$error = null;
+
 		// If method POST
 		if ($_SERVER['REQUEST_METHOD'] === "POST") 
 		{
 			
 		// Récupérer les données du formulaire
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-			var_dump($_POST);
-			exit;
+			$email = $_POST['user']['email'];
+			$password = $_POST['user']['password'];
+
+			
 
 		// Vérifier les données (dans la bdd - Est ce que l'utilisateur existe ?)
-
 		// Contrôler les identifiants (login + pwd)
+			if($userId = $this->AuthManager->isValidLoginInfo($email, $password))
+			{
+				// Récup des données de l'utilisateur dans la bdd
+				$user = $this->userManager->find($userId);
 
-		// Ajouter l'utilisateur à la SESSION
+				// Ajouter l'utilisateur à la SESSION
+				$this->AuthManager->logUserIn($user);
 
-		// Redirige l'utilisateur vers sa page profil
+			
+				// Redirige l'utilisateur vers sa page profil
+				$this->redirectToRoute('profile');
+			}
+		// Echec de connexion
+			else {
+				// Message d'erreur
+				$error = "Echec d'identification";
+			}
+		
 		}
 		// Affiche le formulaire d'identification
 		$this->show('security/signin', [
-			"title" => "Identification"
+			"title" => "Identification",
+			"error" => $error,
 			]);
 
 	}
@@ -50,6 +69,7 @@ class SecurityController extends Controller
 		$email = null;
 		$password = null;
 		$repeat_password = null; 
+		$error = null;
 
 		// if method POST
 		if ($_SERVER['REQUEST_METHOD'] === "POST") 
@@ -110,6 +130,8 @@ class SecurityController extends Controller
 		else {
 
 		// On affiche un message d'erreur
+		// message dans un flashbag
+			$error = "Un utilisateur existe déjà avec l'adresse email : $email";
 			}
 		}
 
@@ -122,6 +144,7 @@ class SecurityController extends Controller
 			"title" => "Inscription",
 			"username" => $username,
 			"email" => $email,
+			"error" => $error,
 
 			]);
 
@@ -130,23 +153,44 @@ class SecurityController extends Controller
 	public function logout()
 	{
 		// On détruit la SESSION
+		$this->AuthManager->logUserOut();
 
 		// On redirige vers la page d'accueil
+		$this->redirectToRoute('home');
 	}
 
 	public function lostPwd()
 	{
 		// if method POST
+		if($_SERVER['REQUEST_METHOD'] === "POST") 
+		{
 
 		// Récupération des données du POST
+			$email = strip_tags(trim($_POST['email']));
 
 		// Récupération de l'utilisateur dans la BDD (est-ce que l'utilisateur existe ?)
+			if ($user = $this->userManager->getUserByUsernameOrEmail($email)) {;
 
 		// Generation du Token
+			$token = array(
+				"token" => md5(\W\Security\StringUtils::randomString(10)), // Token
+				"timeout" => time()+3600, // Timeout
+				"user_id" => $user['id'], // ID user
+				);
+
+			$tokensManager = new \Manager\TokensManager;
+			$tokensManager->insert($token);
 
 			// Envoi du mail avec le process de renouvellement du MDP
 
 			// Affichage le message de prise en compte de la demande
+		}
+
+			// Pas d'utilisateur en BDD -> Affiche un message d'erreur
+	} else {
+
+	}
+		
 
 		// Affichage du formulaire(adresse email)
 		$this->show('security/pwd/lost', [

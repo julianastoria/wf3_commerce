@@ -22,6 +22,8 @@ class UsersController extends Controller
 		// Contrôle de l'accès
 		$user = $this->getUser();
 		
+
+		
 		if (!$user) {
 			$this->redirectToRoute('security_signin');
 		}
@@ -29,7 +31,7 @@ class UsersController extends Controller
 		// Affichage de la vue du profil
 		$this->show('users/index', [
 			"title" => "Adieu " . $user['username'],
-			"user" => $this->user_m->find($user['id'])
+			"user" => $this->user_m->find($user['id']),
 			]);
 	}
 }

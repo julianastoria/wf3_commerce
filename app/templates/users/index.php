@@ -11,4 +11,6 @@
 	<strong>Email</strong> <?= $user['email'] ?>
 </div>
 
+<a href="<?= $this->url('security_logout') ?>">Déconnexion</a>
+
 <?php $this->stop('main_content') ?>

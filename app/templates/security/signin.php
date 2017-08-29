@@ -5,6 +5,13 @@
 
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
+
+			<?php if(!empty($error)): ?>
+				<div class="alert alert-danger">
+					<?= $error ?>
+				</div>
+			<?php endif; ?>
+
 			<form action="<?= $this->url('security_signin') ?>" method="POST">
 				<div class="form-group">
                     <label for="email">Email</label>
@@ -16,6 +23,9 @@
                 </div>
                 <button type="submit" class="btn btn-pink">Submit</button>
 			</form>
+
+			<a href="<?= $this->url('security_lost_pwd') ?>">J'ai oublié mon mot de passe</a>
+
 		</div>
 		
 	</div>

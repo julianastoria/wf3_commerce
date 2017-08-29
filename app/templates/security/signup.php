@@ -4,6 +4,12 @@
 <h2><?= $title ?></h2>
 
 <form method="POST">
+<?php if(!empty($error)): ?>
+				<div class="alert alert-danger">
+					<?= $error ?>
+				</div>
+			<?php endif; ?>
+			
 	<div>
 		<label for="username">Nom Prénom</label>
 		<input type="text" id="username" name="username" value="<?= $username?>">
