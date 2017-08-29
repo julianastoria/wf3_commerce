@@ -1,0 +1,14 @@
+{
+  "name": "wf3_commerce",
+  "homepage": "https://github.com/julianastoria/wf3_commerce",
+  "authors": [
+    "julianastoria <juliana.histoire@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

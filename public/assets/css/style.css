@@ -1,6 +1,6 @@
 html, body {
 	font-family: Consolas, monaco, monospace;
-	background-color: #272822;
+	background-color: #6e22bf;
 	color: #F8F8F2;
 }
 
@@ -10,7 +10,7 @@ html, body {
 
 a {
 	text-decoration: none;
-	color: #A6E22E;
+	color: #ee00ff;
 }
 
 a:hover {
@@ -18,9 +18,23 @@ a:hover {
 }
 
 h1 {
-	color: #F92672;
+	color: #ff00a5;
 }
 
 h2 {
-	color: #66D9EF;
+	color: #ff0000;
+}
+
+.btn-pink {
+	background-color: pink;
+	border-color: pink;
+	color: purple;
+}
+
+input, textarea {
+	color: #333 !important;
+}
+
+p {
+	color : #fc5a5a;
 }

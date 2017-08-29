@@ -24,7 +24,7 @@
 		<input type="password" id="repeat_password" name="repeat_password">
 	</div>
 
-	<button type="submit"> Je m'inscris</button>
+	<button type="submit" class=" btn btn-pink"> Je m'inscris</button>
 </form>
 
 <?php $this->stop('main_content') ?>

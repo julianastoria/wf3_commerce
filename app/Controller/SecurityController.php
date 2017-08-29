@@ -20,8 +20,14 @@ class SecurityController extends Controller
 	public function signin()
 	{
 		// If method POST
-
+		if ($_SERVER['REQUEST_METHOD'] === "POST") 
+		{
+			
 		// Récupérer les données du formulaire
+			$email = $_POST['email'];
+			$password = $_POST['password'];
+			var_dump($_POST);
+			exit;
 
 		// Vérifier les données (dans la bdd - Est ce que l'utilisateur existe ?)
 
@@ -30,7 +36,7 @@ class SecurityController extends Controller
 		// Ajouter l'utilisateur à la SESSION
 
 		// Redirige l'utilisateur vers sa page profil
-
+		}
 		// Affiche le formulaire d'identification
 		$this->show('security/signin', [
 			"title" => "Identification"
@@ -71,6 +77,10 @@ class SecurityController extends Controller
 		}
 
 		// Cryptage du mot de passe
+		else {
+			$password = password_hash($password, PASSWORD_DEFAULT);
+			
+		}
 
 
 		if($save) {

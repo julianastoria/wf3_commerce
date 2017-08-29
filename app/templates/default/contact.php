@@ -18,6 +18,6 @@
 			<label for="message">Votre message</label>
 			<textarea id="message" name="message" rows="8" cols="80"><?= $message ?></textarea>
 		</div>
-		<button type="submit" name="button">Envoi</button>
+		<button type="submit" class="btn btn-pink" name="button">Envoi</button>
 	</form>
 <?php $this->stop('main_content') ?>

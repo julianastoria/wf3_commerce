@@ -8,7 +8,7 @@
 	<?php foreach ($products as $product) : ?>
 	<h2><a href="<?= $this->url('product_read', ["id" => $product['id']]) ?>"><?= $product['name'] ?><a></h2><br>
 		<p><?= $product['description'] ?></p><br>
-		<img src="<?= $product['image'] ?>"><br>
+		<img class= "img-responsive" src="<?= $product['image'] ?>"><br>
 		<p><?= $product['price'] ?></p><br><br>
 	<?php endforeach; ?>
 
