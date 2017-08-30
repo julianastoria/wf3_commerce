@@ -3,7 +3,9 @@
 namespace Controller;
 
 use \W\Controller\Controller;
+use \Manager\ProductsManager;
 use \Manager\ContactsManager;
+
 
 class DefaultController extends Controller
 {
@@ -13,7 +15,13 @@ class DefaultController extends Controller
 	 */
 	public function home()
 	{
-		$this->show('default/home');
+		$productsManager = new ProductsManager();
+		$products = $productsManager->findAll();
+
+
+		$this->show('default/home', [
+			"products" => $products
+			]);
 	}
 
 	public function contact()
